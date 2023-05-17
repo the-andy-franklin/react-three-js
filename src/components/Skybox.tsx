@@ -1,4 +1,3 @@
-// Skybox.tsx
 import React, { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { CubeTextureLoader, Mesh } from 'three';
@@ -7,7 +6,6 @@ const Skybox: React.FC = () => {
   const mesh = useRef<Mesh>();
   const { scene } = useThree();
 
-  // Load cubemap texture
   useEffect(() => {
     const loader = new CubeTextureLoader();
     const texture = loader.load([
