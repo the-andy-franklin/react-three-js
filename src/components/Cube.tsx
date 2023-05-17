@@ -1,9 +1,11 @@
-import { useRef } from 'react';
-import { Mesh } from 'three';
+import { useRef, useMemo } from 'react';
+import { Mesh, TextureLoader } from 'three';
 import { useFrame } from '@react-three/fiber';
 
 const Cube = () => {
-  const meshRef = useRef<Mesh>();
+  const meshRef = useRef<Mesh>(null);
+
+  const texture = useMemo(() => new TextureLoader().load('andy copy.jpeg'), [])
 
   useFrame(() => {
     if (meshRef.current) {
@@ -14,7 +16,7 @@ const Cube = () => {
   return (
     <mesh ref={meshRef}>
       <boxBufferGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color='lime' />
+      <meshStandardMaterial map={texture} />
     </mesh>
   );
 };
