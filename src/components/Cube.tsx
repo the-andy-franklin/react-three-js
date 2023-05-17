@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import { Mesh, TextureLoader } from 'three';
 import { useFrame } from '@react-three/fiber';
 
@@ -7,9 +7,15 @@ const Cube = () => {
 
   const texture = useMemo(() => new TextureLoader().load('andy copy.jpeg'), [])
 
+  useEffect(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = Math.PI / 16;
+    }
+  }, []);
+
   useFrame(() => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = meshRef.current.rotation.y += 0.01;
+      meshRef.current.rotation.y += 0.01;
     }
   });
 
