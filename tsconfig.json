@@ -17,8 +17,12 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Building */
+    "outDir": "build"
   },
   "include": ["src"],
+  "exclude": ["build"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
