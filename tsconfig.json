@@ -20,7 +20,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Building */
-    "outDir": "build"
+    "outDir": "dist"
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
