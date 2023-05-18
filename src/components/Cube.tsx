@@ -5,7 +5,6 @@ import andy from '/andy copy.jpeg'
 
 const Cube = () => {
   const meshRef = useRef<Mesh>(null);
-
   const texture = useMemo(() => new TextureLoader().load(andy), [])
 
   useEffect(() => {

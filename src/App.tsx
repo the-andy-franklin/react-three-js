@@ -7,7 +7,7 @@ import Text3D from './components/Text3D';
 
 function App() {
   return (
-    <Canvas camera={{ position: [0, 0, 5] }}>
+    <Canvas camera={{ position: [0, 0, 15], far: 2000 }}>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <Skybox />

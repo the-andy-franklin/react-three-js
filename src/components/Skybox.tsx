@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { CubeTextureLoader, Mesh } from 'three';
+import { CubeTextureLoader, Object3D } from 'three';
 
 const Skybox: React.FC = () => {
-  const mesh = useRef<Mesh>();
-  const { scene } = useThree();
+  const { scene, camera } = useThree();
+  const pivot = useRef<Object3D>();
 
   useEffect(() => {
     const loader = new CubeTextureLoader();
@@ -15,16 +15,25 @@ const Skybox: React.FC = () => {
     ]);
 
     scene.background = texture;
-  }, [scene]);
 
-  // Rotate skybox over time
+    // Create a pivot object and add the camera to it.
+    const pivotObject = new Object3D();
+    pivot.current = pivotObject;
+    pivotObject.add(camera);
+
+    // Add the pivot object to the scene. Now when the pivot object is rotated,
+    // the camera will rotate around the pivot point.
+    scene.add(pivotObject);
+  }, [camera, scene]);
+
+  // Rotate pivot over time
   useFrame(() => {
-    if (mesh.current) {
-      mesh.current.rotation.y += 0.0005;
+    if (scene) {
+      scene.rotateY(0.001);
     }
   });
 
-  return null; // no need to return anything as we're directly manipulating the scene's background
+  return null; // No need to return anything as we're directly manipulating the scene
 };
 
 export default Skybox;
