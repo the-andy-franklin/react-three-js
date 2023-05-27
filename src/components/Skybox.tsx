@@ -16,24 +16,17 @@ const Skybox: React.FC = () => {
 
     scene.background = texture;
 
-    // Create a pivot object and add the camera to it.
     const pivotObject = new Object3D();
     pivot.current = pivotObject;
     pivotObject.add(camera);
-
-    // Add the pivot object to the scene. Now when the pivot object is rotated,
-    // the camera will rotate around the pivot point.
     scene.add(pivotObject);
   }, [camera, scene]);
 
-  // Rotate pivot over time
   useFrame(() => {
-    if (scene) {
-      scene.rotateY(0.001);
-    }
+    scene.rotateY(0.001);
   });
 
-  return null; // No need to return anything as we're directly manipulating the scene
+  return null; 
 };
 
 export default Skybox;

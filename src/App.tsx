@@ -1,11 +1,13 @@
-// App.tsx
+import * as THREE from 'three'
 import { Canvas } from '@react-three/fiber';
 import Cube from './components/Cube';
-import { OrbitControls } from '@react-three/drei';
+import { Center, OrbitControls, Text3D } from '@react-three/drei';
 import Skybox from './components/Skybox';
-import Text3D from './components/Text3D';
 
 function App() {
+  const frontMaterial = new THREE.MeshBasicMaterial({ color: "white" });
+  const sideMaterail = new THREE.MeshBasicMaterial({ color: "grey" });
+  
   return (
     <Canvas camera={{ position: [0, 0, 15], far: 2000 }}>
       <ambientLight />
@@ -13,12 +15,16 @@ function App() {
       <Skybox />
       <Cube />
       <OrbitControls />
-      <Text3D y={-2}>
-        Click-and-drag to rotate
-      </Text3D>
-      <Text3D y={-3}>
-        Scroll to zoom
-      </Text3D>
+      <group position={[0, -3, 0]}>
+        <Center top>
+          <Text3D
+            font={'/fonts/Roboto.typeface.json'}
+            material={[frontMaterial, sideMaterail]}
+          >
+            Click-and-drag to rotate
+          </Text3D>
+        </Center>
+      </group>
     </Canvas>
   );
 }
