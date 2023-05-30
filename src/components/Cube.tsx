@@ -6,8 +6,8 @@ import { useFrame } from 'react-three-fiber';
 
 const Cube = () => {
   const meshRef = useRef<Mesh>(null);
-  const texture = useMemo(() => new TextureLoader().load(andy), [])
-  const data = useScroll();
+  const texture = useMemo(() => new TextureLoader().load(andy), []);
+  const scroll = useScroll();
 
   useEffect(() => {
     if (meshRef.current) {
@@ -17,8 +17,8 @@ const Cube = () => {
   
   useFrame(() => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = data.offset * 6.25;
-      meshRef.current.rotation.y = data.offset * 6.25;
+      meshRef.current.rotation.x = scroll.offset * 6.25;
+      meshRef.current.rotation.y = scroll.offset * 6.25;
     }
   });
 

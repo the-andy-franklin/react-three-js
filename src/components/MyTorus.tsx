@@ -6,9 +6,10 @@ import { useFrame } from 'react-three-fiber';
 const MyTorus = () => {
   const meshRef = useRef<Mesh>(null);
   const scroll = useScroll();
+  const vector3 = new Vector3(1, 1, 0).setLength(1);
   
   useFrame(() => {
-    meshRef.current?.setRotationFromAxisAngle(new Vector3(1, 1, 0), scroll.offset * 6.25)
+    meshRef.current?.setRotationFromAxisAngle(vector3, scroll.offset * Math.PI * 2)
   });
 
   return (

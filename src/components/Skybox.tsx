@@ -1,13 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { CubeTextureLoader, Object3D } from 'three';
+import { CubeTextureLoader } from 'three';
 import { useScroll } from '@react-three/drei';
 
 const Skybox: React.FC = () => {
   const { scene, camera } = useThree();
-  const pivot = useRef<Object3D>();
-  const data = useScroll();
-  let previousOffset = 0;
+  const scroll = useScroll();
+  let previousOffset = 0; // intentionally not using useState here
 
   useEffect(() => {
     const loader = new CubeTextureLoader();
@@ -18,29 +17,14 @@ const Skybox: React.FC = () => {
     ]);
 
     scene.background = texture;
-
-    const pivotObject = new Object3D();
-    pivot.current = pivotObject;
-    pivotObject.add(camera);
-    scene.add(pivotObject);
   }, [camera, scene]);
 
   useFrame(() => {
-    scene.rotateY(data.delta * 0.1);
-
-    const currentOffset = data.offset;
-    if (currentOffset > previousOffset) {
-      if (data.delta > 0) {
-        camera.translateZ(data.delta * 128)
-      }
-    } else if (currentOffset < previousOffset) {
-      if (data.delta > 0) {
-        if (camera.position.z > 10) {
-          camera.translateZ(data.delta * -128)
-        }
-      }
+    if (scroll.delta > 0) {
+      if (scroll.offset > previousOffset) camera.translateZ(scroll.delta * 128);
+      if (scroll.offset < previousOffset && camera.position.z > 10) camera.translateZ(scroll.delta * -128);
+      previousOffset = scroll.offset;
     }
-    previousOffset = currentOffset;
   });
 
   return null; 
