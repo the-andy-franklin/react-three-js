@@ -11,11 +11,8 @@ const MyTorus = () => {
   useFrame(() => {
     if (meshRef.current) {
       if (scroll.delta > 0) {
-        if (scroll.offset > previousOffset) {
-          meshRef.current.rotateOnAxis(new Vector3(1, 1, 0), scroll.delta * 6.25)
-        } else if (scroll.offset < previousOffset) {
-          meshRef.current.rotateOnAxis(new Vector3(1, 1, 0), scroll.delta * -6.25)
-        }
+        if (scroll.offset > previousOffset) meshRef.current.rotateOnAxis(new Vector3(1, 1, 0), scroll.delta * 6.25)
+        if (scroll.offset < previousOffset) meshRef.current.rotateOnAxis(new Vector3(1, 1, 0), scroll.delta * -6.25)
         previousOffset = scroll.offset;
       }
 
