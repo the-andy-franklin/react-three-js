@@ -14,7 +14,7 @@ const Cube = () => {
       meshRef.current.rotation.x = Math.PI / 16;
     }
   }, []);
-  
+
   useFrame(() => {
     if (meshRef.current) {
       meshRef.current.rotation.x = scroll.offset * 6.25;

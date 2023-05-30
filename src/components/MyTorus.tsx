@@ -7,7 +7,7 @@ const MyTorus = () => {
   const meshRef = useRef<Mesh>(null);
   const scroll = useScroll();
   const vector3 = new Vector3(1, 1, 0).setLength(1);
-  
+
   useFrame(() => {
     meshRef.current?.setRotationFromAxisAngle(vector3, scroll.offset * Math.PI * 2)
   });
