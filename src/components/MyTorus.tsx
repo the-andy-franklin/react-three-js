@@ -6,7 +6,7 @@ import { useFrame } from 'react-three-fiber';
 const MyTorus = () => {
   const meshRef = useRef<Mesh>(null);
   const scroll = useScroll();
-  let previousOffset = 0;
+  let previousOffset = 0; // I'm intentionally not using useState here
   
   useFrame(() => {
     if (meshRef.current) {
@@ -24,7 +24,6 @@ const MyTorus = () => {
         if (meshRef.current.rotation.y !== 0) meshRef.current.rotateY(-meshRef.current.rotation.y / 24)
         if (meshRef.current.rotation.z !== 0) meshRef.current.rotateZ(-meshRef.current.rotation.z / 24)
       }
-
     }
   });
 
