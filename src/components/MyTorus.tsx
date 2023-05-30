@@ -5,18 +5,26 @@ import { useFrame } from 'react-three-fiber';
 
 const MyTorus = () => {
   const meshRef = useRef<Mesh>(null);
-  const data = useScroll();
+  const scroll = useScroll();
   let previousOffset = 0;
   
   useFrame(() => {
-    if (meshRef.current && data.delta > 0) {
-      const currentOffset = data.offset;
-      if (currentOffset > previousOffset) {
-        meshRef.current.rotateOnAxis(new Vector3(1, 1, 0), data.delta * 6.25)
-      } else if (currentOffset < previousOffset) {
-        meshRef.current.rotateOnAxis(new Vector3(1, 1, 0), data.delta * -6.25)
+    if (meshRef.current) {
+      if (scroll.delta > 0) {
+        if (scroll.offset > previousOffset) {
+          meshRef.current.rotateOnAxis(new Vector3(1, 1, 0), scroll.delta * 6.25)
+        } else if (scroll.offset < previousOffset) {
+          meshRef.current.rotateOnAxis(new Vector3(1, 1, 0), scroll.delta * -6.25)
+        }
+        previousOffset = scroll.offset;
       }
-      previousOffset = currentOffset;
+
+      if (scroll.delta === 0) {
+        if (meshRef.current.rotation.x !== 0) meshRef.current.rotateX(-meshRef.current.rotation.x / 24)
+        if (meshRef.current.rotation.y !== 0) meshRef.current.rotateY(-meshRef.current.rotation.y / 24)
+        if (meshRef.current.rotation.z !== 0) meshRef.current.rotateZ(-meshRef.current.rotation.z / 24)
+      }
+
     }
   });
 
